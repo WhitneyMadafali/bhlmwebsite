@@ -3,970 +3,1289 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="KOSI Africa - Empowering communities through knowledge sharing">
-    <title>KOSI Africa - Knowledge Sharing Platform</title>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header */
-        .header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #2563eb;
-        }
-
-        .nav-logo::before {
-            content: "🌍";
-            font-size: 2rem;
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-link {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        .nav-link:hover {
-            color: #2563eb;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: #2563eb;
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        .nav-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 4px;
-        }
-
-        .bar {
-            width: 25px;
-            height: 3px;
-            background-color: #333;
-            transition: 0.3s;
-            border-radius: 2px;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 120px 0 80px;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-        }
-
-        .hero-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-        }
-
-        .hero-description {
-            font-size: 1.25rem;
-            margin-bottom: 2.5rem;
-            opacity: 0.9;
-            line-height: 1.6;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 50px;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .btn-primary {
-            background: white;
-            color: #2563eb;
-        }
-
-        .btn-primary:hover {
-            background: #f8fafc;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        .btn-secondary:hover {
-            background: white;
-            color: #2563eb;
-            transform: translateY(-2px);
-        }
-
-        .hero-image {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .hero-image::before {
-            content: "🤝";
-            font-size: 15rem;
-            opacity: 0.8;
-        }
-
-        /* About Section */
-        .about {
-            padding: 80px 0;
-            background: #f8fafc;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 1rem;
-        }
-
-        .section-header p {
-            font-size: 1.2rem;
-            color: #64748b;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-text h3 {
-            font-size: 2rem;
-            color: #1e293b;
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-        }
-
-        .about-text > p {
-            font-size: 1.1rem;
-            color: #64748b;
-            margin-bottom: 2.5rem;
-            line-height: 1.7;
-        }
-
-        .about-features {
-            display: grid;
-            gap: 1.5rem;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            padding: 1.5rem;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .feature-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .feature-item::before {
-            font-size: 2rem;
-            min-width: 50px;
-        }
-
-        .feature-item:nth-child(1)::before { content: "📚"; }
-        .feature-item:nth-child(2)::before { content: "🤝"; }
-        .feature-item:nth-child(3)::before { content: "🌱"; }
-
-        .feature-item h4 {
-            font-size: 1.2rem;
-            color: #1e293b;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .feature-item p {
-            color: #64748b;
-            font-size: 0.95rem;
-        }
-
-        .about-image {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 20px;
-            min-height: 400px;
-        }
-
-        .about-image::before {
-            content: "👥";
-            font-size: 8rem;
-            opacity: 0.8;
-        }
-
-        /* Services Section */
-        .services {
-            padding: 80px 0;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-card {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 16px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-            border: 1px solid #e2e8f0;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .service-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 1.5rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-        }
-
-        .service-card:nth-child(1) .service-icon::before { content: "🎓"; }
-        .service-card:nth-child(2) .service-icon::before { content: "🌿"; }
-        .service-card:nth-child(3) .service-icon::before { content: "🤝"; }
-
-        .service-card h3 {
-            font-size: 1.5rem;
-            color: #1e293b;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .service-card p {
-            color: #64748b;
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .service-link {
-            color: #2563eb;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .service-link:hover {
-            color: #1d4ed8;
-        }
-
-        /* Impact Section */
-        .impact {
-            padding: 80px 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .impact-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            text-align: center;
-        }
-
-        .stat-item {
-            padding: 2rem;
-        }
-
-        .stat-number {
-            display: block;
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            font-weight: 500;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 80px 0;
-            background: #f8fafc;
-        }
-
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-        }
-
-        .contact-form {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #374151;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-            font-family: inherit;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #2563eb;
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1.5rem;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
-
-        .contact-item::before {
-            font-size: 1.5rem;
-            min-width: 40px;
-        }
-
-        .contact-item:nth-child(1)::before { content: "✉️"; }
-        .contact-item:nth-child(2)::before { content: "📞"; }
-        .contact-item:nth-child(3)::before { content: "📍"; }
-
-        .contact-item h4 {
-            color: #1e293b;
-            margin-bottom: 0.25rem;
-            font-weight: 600;
-        }
-
-        .contact-item p {
-            color: #64748b;
-            margin: 0;
-        }
-
-        /* Footer */
-        .footer {
-            background: #1e293b;
-            color: white;
-            padding: 60px 0 20px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .footer-logo::before {
-            content: "🌍";
-            font-size: 2rem;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-section ul li a {
-            color: #94a3b8;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section ul li a:hover {
-            color: white;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid #374151;
-            color: #94a3b8;
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .nav-menu {
-                position: fixed;
-                left: -100%;
-                top: 70px;
-                flex-direction: column;
-                background-color: white;
-                width: 100%;
-                text-align: center;
-                transition: 0.3s;
-                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
-                padding: 2rem 0;
-            }
-
-            .nav-menu.active {
-                left: 0;
-            }
-
-            .nav-toggle {
-                display: flex;
-            }
-
-            .nav-toggle.active .bar:nth-child(2) {
-                opacity: 0;
-            }
-
-            .nav-toggle.active .bar:nth-child(1) {
-                transform: translateY(7px) rotate(45deg);
-            }
-
-            .nav-toggle.active .bar:nth-child(3) {
-                transform: translateY(-7px) rotate(-45deg);
-            }
-
-            .hero-container {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 2rem;
-            }
-
-            .hero-title {
-                font-size: 2.5rem;
-            }
-
-            .hero-description {
-                font-size: 1.1rem;
-            }
-
-            .hero-image::before {
-                font-size: 8rem;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .contact-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .section-header h2 {
-                font-size: 2rem;
-            }
-
-            .hero-buttons {
-                justify-content: center;
-            }
-
-            .btn {
-                padding: 0.875rem 1.5rem;
-                font-size: 0.95rem;
-            }
-
-            .container {
-                padding: 0 15px;
-            }
-
-            .hero {
-                padding: 100px 0 60px;
-            }
-
-            .about, .services, .impact, .contact {
-                padding: 60px 0;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-title {
-                font-size: 2rem;
-            }
-
-            .hero-description {
-                font-size: 1rem;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .impact-stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .stat-number {
-                font-size: 2.5rem;
-            }
-
-            .nav-container {
-                padding: 0.75rem 15px;
-            }
-
-            .contact-form {
-                padding: 1.5rem;
-            }
-
-            .about-features {
-                gap: 1rem;
-            }
-
-            .feature-item {
-                padding: 1rem;
-            }
-        }
-
-        /* Animation */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero-content > * {
-            animation: fadeInUp 0.8s ease forwards;
-        }
-
-        .hero-title {
-            animation-delay: 0.2s;
-        }
-
-        .hero-description {
-            animation-delay: 0.4s;
-        }
-
-        .hero-buttons {
-            animation-delay: 0.6s;
-        }
-    </style>
+    <title>BUNGOMA HEALTH LINK FORUM</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header" id="header">
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="nav-logo">
-                    <span>KOSI Africa</span>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="images/bhlflogo.png" alt="BHLM" class="logo">
+                <span class="brand-text">BHLF</span>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#programs" class="nav-link">Clubhouses</a>
+                <a href="#team" class="nav-link">Team</a>
+                <a href="#impact" class="nav-link">Impact</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <a href="#" class="nav-link donate-btn">Donate</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Bungoma Health Link Forum</h1>
+            <p class="hero-subtitle">Creating safe and empowering spaces for individuals living with mental illnesses</p>
+            <div class="hero-buttons">
+                <a href="#programs" class="btn btn-primary">Our Clubhouses</a>
+                <a href="#" class="btn btn-secondary">Get Involved</a>
+            </div>
+        </div>
+        <div class="hero-stats">
+            <div class="stat-item">
+                <h3>10,000+</h3>
+                <p>Students Impacted</p>
+            </div>
+            <div class="stat-item">
+                <h3>50+</h3>
+                <p>Schools Supported</p>
+            </div>
+            <div class="stat-item">
+                <h3>15</h3>
+                <p>Countries Reached</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About Bungoma Health Link Forum</h2>
+                <p class="section-subtitle">Creating safe and empowering spaces for individuals living with mental illnesses.</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Our Story</h3>
+                    <p>Bungoma Health Link Forum was registered as a community-based organization (CBO) on 30/03/2022 with certificate no: 06937. We are located in Kanduyi Subcounty, Bungoma County. We recently launched our organization on 12/01/2024. We are a modification of a clubhouse concept where adults living with depression, bipolar, and schizophrenia are guided and supported to achieve recovery.</p>
+                    <p>We refer to persons living with depression, bipolar, and schizophrenia as <strong>members</strong> and not as patients. Our membership is voluntary and timeless. We aim at combating the consequences associated with serious mental illness by supporting the strengths of our members and addressing obstacles in real time.</p>
+                    <p>We provide psychiatric consultations, psychological guidance, and meals at no cost to our members. We have a staff establishment of seven (7) staff, 5 full-time and 2 part-time staff, and a board that oversees the operations at the facility.</p>
+
+                    <!-- <div class="values">
+                        <div class="value-item">
+                            <i class="fas fa-heart"></i>
+                            <h4>Our Mission</h4>
+                            <p>We are committed to empowering communities through impactful programs that promote health, education, and sustainable development.</p>
+                        </div>
+                        <div class="value-item">
+                            <i class="fas fa-lightbulb"></i>
+                            <h4>Our Vision</h4>
+                            <p>To create a world where every individual has the opportunity to lead a fulfilling and healthy life, supported by a resilient community.</p>
+                        </div>
+                        <div class="value-item">
+                            <i class="fas fa-handshake"></i>
+                            <h4>Our Values</h4>
+                            <p>Integrity, compassion, and innovation drive everything we do as we strive to make a meaningful impact in the lives we touch.</p>
+                        </div>
+                    </div> -->
                 </div>
-                
-                <ul class="nav-menu" id="nav-menu">
-                    <li><a href="#home" class="nav-link">Home</a></li>
-                    <li><a href="#about" class="nav-link">About</a></li>
-                    <li><a href="#services" class="nav-link">Services</a></li>
-                    <li><a href="#impact" class="nav-link">Impact</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                </ul>
-                
-                <div class="nav-toggle" id="nav-toggle">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
+                <div class="about-image">
+                    <img src="images/aboutus.jpg" alt="Students learning">
                 </div>
             </div>
-        </nav>
-    </header>
+        </div>
+    </section>
 
-    <!-- Main Content -->
-    <main>
-        <!-- Hero Section -->
-        <section id="home" class="hero">
-            <div class="container">
-                <div class="hero-container">
-                    <div class="hero-content">
-                        <h1 class="hero-title">Empowering Africa Through Knowledge</h1>
-                        <p class="hero-description">Building bridges between communities, fostering innovation, and creating sustainable solutions for Africa's future.</p>
-                        <div class="hero-buttons">
-                            <a href="#services" class="btn btn-primary">Our Programs</a>
-                            <a href="#contact" class="btn btn-secondary">Get Involved</a>
-                        </div>
-                    </div>
-                    <div class="hero-image">
-                    </div>
-                </div>
+    <!-- Programs Section -->
+    <section id="programs" class="programs">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Clubhouses</h2>
+                <p class="section-subtitle">Comprehensive initiatives designed to create lasting impact</p>
             </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="about">
-            <div class="container">
-                <div class="section-header">
-                    <h2>BUNGOMA HEALTH LINK FORUM</h2>
-                    <p>At Bungoma Health Link Forum, community is therapy. We work in partnership with our members — people living with serious mental illness — to ensure they are at the center of their own recovery.</p>
+            <div class="programs-grid">
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Education Initiative</h3>
+                    <p>Providing quality education resources, teacher training, and curriculum development to schools across Africa.</p>
+                    <ul>
+                        <li>Teacher Training Programs</li>
+                        <li>Digital Learning Resources</li>
+                        <li>Scholarship Programs</li>
+                    </ul>
+                    <a href="#" class="program-link">Learn More <i class="fas fa-arrow-right"></i></a>
                 </div>
                 
-                <div class="about-content">
-                    <div class="about-text">
-                        <h3>Our Mission</h3>
-                        <p>KOSI Africa is dedicated to empowering communities across the continent through knowledge sharing, sustainable development, and innovative solutions that create lasting positive impact.</p>
-                        
-                        <div class="about-features">
-                            <div class="feature-item">
-                                <div>
-                                    <h4>Education First</h4>
-                                    <p>Building educational infrastructure and capacity development programs</p>
-                                </div>
-                            </div>
-                            <div class="feature-item">
-                                <div>
-                                    <h4>Community Focus</h4>
-                                    <p>Working directly with local communities to understand their needs</p>
-                                </div>
-                            </div>
-                            <div class="feature-item">
-                                <div>
-                                    <h4>Sustainable Impact</h4>
-                                    <p>Creating long-term, environmentally conscious solutions</p>
-                                </div>
-                            </div>
-                        </div>
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-laptop-code"></i>
                     </div>
-                    
-                    <div class="about-image">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Services Section -->
-        <section id="services" class="services">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Our Programs</h2>
-                    <p>Comprehensive initiatives driving positive change across African communities</p>
+                    <h3>Health & Wellness Programs</h3>
+                    <p>Empowering individuals with the knowledge and skills to maintain personal and environmental cleanliness.</p>
+                    <ul>
+                        <li>Fitness Workshops</li>
+                        <li>Handwashing</li>
+                        <li>Nutrition Programs</li>
+                    </ul>
+                    <a href="#" class="program-link">Learn More <i class="fas fa-arrow-right"></i></a>
                 </div>
                 
-                <div class="services-grid">
-                    <div class="service-card">
-                        <div class="service-icon">
-                        </div>
-                        <h3>Education & Training</h3>
-                        <p>Providing accessible education and comprehensive skill development programs to empower individuals and communities.</p>
-                        <a href="#" class="service-link">Learn More →</a>
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-seedling"></i>
                     </div>
-                    
-                    <div class="service-card">
-                        <div class="service-icon">
-                        </div>
-                        <h3>Sustainable Development</h3>
-                        <p>Environmental projects and initiatives that promote long-term sustainability and ecological preservation.</p>
-                        <a href="#" class="service-link">Learn More →</a>
-                    </div>
-                    
-                    <div class="service-card">
-                        <div class="service-icon">
-                        </div>
-                        <h3>Community Partnership</h3>
-                        <p>Building strong partnerships with local communities to ensure sustainable and culturally appropriate solutions.</p>
-                        <a href="#" class="service-link">Learn More →</a>
-                    </div>
+                    <h3>Community Development</h3>
+                    <p>Supporting sustainable development through community-based projects and capacity building.</p>
+                    <ul>
+                        <li>Vegetable Farming</li>
+                        <li>Chicken Farming</li>
+                        <li>Environmental Conservation</li>
+                    </ul>
+                    <a href="#" class="program-link">Learn More <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Impact Section -->
-        <section id="impact" class="impact">
-            <div class="container">
+    <!-- Impact Section -->
+    <section id="impact" class="impact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Impact</h2>
+                <p class="section-subtitle">Measuring success through transformed lives and communities</p>
+            </div>
+            <div class="impact-content">
                 <div class="impact-stats">
-                    <div class="stat-item">
-                        <span class="stat-number">50+</span>
-                        <span class="stat-label">Communities Served</span>
+                    <div class="impact-stat">
+                        <div class="stat-number">10,000+</div>
+                        <div class="stat-label">Students Educated</div>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-number">10K+</span>
-                        <span class="stat-label">Lives Impacted</span>
+                    <div class="impact-stat">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Teachers Trained</div>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-number">25+</span>
-                        <span class="stat-label">Active Projects</span>
+                    <div class="impact-stat">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Schools Supported</div>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-number">15+</span>
-                        <span class="stat-label">Countries Reached</span>
+                    <div class="impact-stat">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">Countries Reached</div>
+                    </div>
+                </div>
+                <div class="testimonials">
+                    <div class="testimonial">
+                        <p>"KOS Africa transformed our school with new technology and teaching methods. Our students are now more engaged and achieving better results."</p>
+                        <div class="testimonial-author">
+                            <strong>Sarah Mbeki</strong>
+                            <span>Principal, Accra Primary School</span>
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <p>"The digital literacy program opened up new opportunities for our community. Many of our youth now have the skills needed for modern jobs."</p>
+                        <div class="testimonial-author">
+                            <strong>James Ochieng</strong>
+                            <span>Community Leader, Nairobi</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="contact">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Get In Touch</h2>
-                    <p>Ready to make a difference? Let's work together to create positive change.</p>
+    <!-- Team Section -->
+    <section id="team" class="team">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Team</h2>
+                <p class="section-subtitle">Meet the dedicated individuals driving our mission forward</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="images/philip.jpg" alt="John Doe" class="team-image">
+                    <h3>Philip Wanyonyi</h3>
+                    <p class="team-role">Chairman</p>
                 </div>
-                
-                <div class="contact-content">
-                    <div class="contact-form">
-                        <form id="contact-form">
-                            <div class="form-group">
-                                <label for="name">Full Name</label>
-                                <input type="text" id="name" name="name" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="email">Email Address</label>
-                                <input type="email" id="email" name="email" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="subject">Subject</label>
-                                <input type="text" id="subject" name="subject" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="message">Message</label>
-                                <textarea id="message" name="message" rows="5" required></textarea>
-                            </div>
-                            
-                            <button type="submit" class="btn btn-primary">Send Message</button>
-                        </form>
-                    </div>
-                    
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <div>
-                                <h4>Email</h4>
-                                <p>info@kosiafrica.org</p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <div>
-                                <h4>Phone</h4>
-                                <p>+254 XXX XXX XXX</p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <div>
-                                <h4>Location</h4>
-                                <p>Nairobi, Kenya</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="team-member">
+                    <img src="images/caren.jpg" alt="Jane Smith" class="team-image">
+                    <h3>Caren Sumba</h3>
+                    <p class="team-role">Director</p>
+                </div>
+                <div class="team-member">
+                    <img src="images/danny.jpg" alt="Michael Otieno" class="team-image">
+                    <h3>Danny Wandabwa</h3>
+                    <p class="team-role">Member</p>
+                </div>
+                <div class="team-member">
+                    <img src="images//david.jpg" alt="Grace Akinyi" class="team-image">
+                    <h3>David Kapten</h3>
+                    <p class="team-role">Member</p>
+                </div>
+                <div class="team-member">
+                    <img src="images/dudek.jpg" alt="David Mwangi" class="team-image">
+                    <h3>Ken Dudek</h3>
+                    <p class="team-role">Member</p>
+                </div>
+                <div class="team-member">
+                    <img src="images/babu.jpg" alt="Esther Wanjiku" class="team-image">
+                    <h3>Dr. Babu Kisiang'ani</h3>
+                    <p class="team-role">Psychiatrist</p>
                 </div>
             </div>
-        </section>
-    </main>
+            <div class="sponsor-section">
+                <h3 class="sponsor-title">Our Sponsor</h3>
+                <div class="sponsor-content">
+                    <img src="https://via.placeholder.com/200x100/4a90e2/ffffff?text=Global+Health+Foundation" alt="Global Health Foundation" class="sponsor-image">
+                            <p class="sponsor-description">Bungoma Health Link Forum is a community-based organization established in 2019 and registered in 2022. The organization was created to address the challenges faced by individuals living with mental health conditions in Bungoma County, with a strong focus on promoting mental health and well-being.</p>
+                            <p class="sponsor-description">Thanks to the generous sponsorship of organizations like <strong>Global Action for Mental Health</strong>, whose founders are: <strong>Pauline Nicholls</strong>, <strong>Kenneth Dudek</strong>, <strong>Jeffrey Arons</strong>, <strong>David Kapten</strong>, <strong>Kinga Jedrzejczak</strong>, <strong>Dr. Ralph Aquilla</strong>, <strong>Cyrus Napolitano</strong> and <strong>David Malatesta</strong>, we are working together to tackle mental health challenges by sharing knowledge, resources, and expertise, ultimately creating a robust support system for those in need.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+   
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">Join us in transforming African communities through education</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Our Location</h4>
+                            <p>Kanduyi<br>Bungoma, Kenya</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+254723129101</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@kosafrica.org</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Subject" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Your Message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <div class="footer-logo">
-                        <span>KOSI Africa</span>
+                    <h4>BHLF</h4>
+                    <p>Transforming lives through education and empowering African communities for a brighter future.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/people/Bungoma-Health-Link-Forum-CBO/61552079693194/?_rdr"><i class="fab fa-facebook"></i></a>
+                        <a href="http://www.youtube.com/@BUNGOMAHEALTHLINKFORUM"><i class="fab fa-youtube"></i></a>
+                        <a href="https://wa.me/254723129101"><i class="fab fa-whatsapp"></i></a>
                     </div>
-                    <p>Empowering communities through knowledge sharing and sustainable development across the African continent.</p>
                 </div>
-                
                 <div class="footer-section">
-                    <h3>Quick Links</h3>
+                    <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#services">Services</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#programs">Clubhouses</a></li>
+                        <li><a href="#team">Team</a></li>
+                        <li><a href="#impact">Our Impact</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
-                
                 <div class="footer-section">
-                    <h3>Programs</h3>
+                    <h4>Clubhouses</h4>
                     <ul>
-                        <li><a href="#">Education</a></li>
-                        <li><a href="#">Healthcare</a></li>
-                        <li><a href="#">Sustainability</a></li>
-                        <li><a href="#">Innovation</a></li>
+                        <li><a href="#">Education Initiative</a></li>
+                        <li><a href="#">Technology Integration</a></li>
+                        <li><a href="#">Community Development</a></li>
+                        <li><a href="#">Scholarship Programs</a></li>
                     </ul>
                 </div>
-                
                 <div class="footer-section">
-                    <h3>Connect</h3>
+                    <h4>Get Involved</h4>
                     <ul>
-                        <li><a href="#">Facebook</a></li>
-                        <li><a href="#">Twitter</a></li>
-                        <li><a href="#">LinkedIn</a></li>
-                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Volunteer</a></li>
+                        <li><a href="#">Donate</a></li>
+                        <li><a href="#">Partner With Us</a></li>
+                        <li><a href="#">Newsletter</a></li>
                     </ul>
                 </div>
             </div>
-            
             <div class="footer-bottom">
-                <p>&copy; 2024 KOSI Africa. All rights reserved.</p>
+                <p>© 2025 BHLF. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
+    <style>
+    /* styles/main.css */
+    :root {
+        --primary-color: #4a90e2;
+        --secondary-color: #2c3e50;
+        --accent-color: #e74c3c;
+        --text-dark: #2c3e50;
+        --text-light: #7f8c8d;
+        --bg-light: #f8f9fa;
+        --white: #ffffff;
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        --shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.2);
+        --border-radius: 8px;
+        --transition: all 0.3s ease;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: var(--text-dark);
+        overflow-x: hidden;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4, h5, h6 {
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 1rem;
+        color: var(--secondary-color);
+    }
+
+    .section-subtitle {
+        font-size: 1.2rem;
+        text-align: center;
+        color: var(--text-light);
+        margin-bottom: 3rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .section-header {
+        margin-bottom: 4rem;
+    }
+
+    /* Buttons */
+    .btn {
+        display: inline-block;
+        padding: 12px 30px;
+        border-radius: var(--border-radius);
+        text-decoration: none;
+        font-weight: 600;
+        text-align: center;
+        transition: var(--transition);
+        cursor: pointer;
+        border: none;
+        font-size: 1rem;
+    }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        color: var(--white);
+    }
+
+    .btn-primary:hover {
+        background-color: #357abd;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-hover);
+    }
+
+    .btn-secondary {
+        background-color: transparent;
+        color: var(--white);
+        border: 2px solid var(--white);
+    }
+
+    .btn-secondary:hover {
+        background-color: var(--white);
+        color: var(--secondary-color);
+    }
+
+    /* Navigation */
+    .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background-color: var(--white);
+        box-shadow: var(--shadow);
+        z-index: 1000;
+        transition: var(--transition);
+    }
+
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .logo {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+
+    .brand-text {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--secondary-color);
+    }
+
+    .nav-menu {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .nav-link {
+        text-decoration: none;
+        color: var(--text-dark);
+        font-weight: 500;
+        transition: var(--transition);
+        position: relative;
+    }
+
+    .nav-link:hover {
+        color: var(--primary-color);
+    }
+
+    .nav-link.donate-btn {
+        background-color: var(--accent-color);
+        color: var(--white);
+        padding: 8px 20px;
+        border-radius: var(--border-radius);
+    }
+
+    .nav-link.donate-btn:hover {
+        background-color: #c0392b;
+    }
+
+    .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+    }
+
+    .bar {
+        width: 25px;
+        height: 3px;
+        background-color: var(--secondary-color);
+        margin: 3px 0;
+        transition: var(--transition);
+    }
+
+    /* Hero Section */
+    .hero {
+        height: 100vh;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: var(--white);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('https://via.placeholder.com/1920x1080/4a90e2/ffffff?text=African+Students') center/cover no-repeat;
+        background-size: cover;
+        background-position: center;
+        opacity: 0.2;
+        z-index: -1;
+    }
+
+    .hero-content {
+        max-width: 800px;
+        padding: 0 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+    }
+
+    .hero-title {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+        font-weight: 700;
+    }
+
+    .hero-subtitle {
+        font-size: 1.3rem;
+        margin-bottom: 2.5rem;
+        opacity: 0.9;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .hero-stats {
+        width: 100%;
+        display: flex;
+        gap: 2rem;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 1rem 1.5rem;
+        border-radius: var(--border-radius);
+        backdrop-filter: blur(10px);
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+    }
+
+    .stat-item {
+        text-align: center;
+        flex: 1;
+        min-width: 100px;
+    }
+
+    .stat-item h3 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-item p {
+        font-size: 0.9rem;
+        opacity: 0.8;
+    }
+
+    /* About Section */
+    .about {
+        padding: 6rem 0;
+        background-color: var(--bg-light);
+    }
+
+    .about-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: start;
+    }
+
+    .about-text h3 {
+        color: var(--secondary-color);
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+
+    .about-text p {
+        margin-bottom: 1.5rem;
+        color: var(--text-light);
+        line-height: 1.8;
+    }
+
+    .values {
+        display: grid;
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .value-item {
+        text-align: center;
+        padding: 1.5rem;
+        background-color: var(--white);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+    }
+
+    .value-item:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-hover);
+    }
+
+    .value-item i {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+
+    .value-item h4 {
+        margin-bottom: 0.5rem;
+        color: var(--secondary-color);
+    }
+
+    .about-image img {
+        width: 100%;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+    }
+
+    /* Programs Section */
+    .programs {
+        padding: 6rem 0;
+    }
+
+    .programs-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    .program-card {
+        background-color: var(--white);
+        padding: 2.5rem;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        text-align: center;
+        transition: var(--transition);
+    }
+
+    .program-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-hover);
+    }
+
+    .program-icon {
+        width: 80px;
+        height: 80px;
+        background-color: var(--primary-color);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+    }
+
+    .program-icon i {
+        font-size: 2rem;
+        color: var(--white);
+    }
+
+    .program-card h3 {
+        margin-bottom: 1rem;
+        color: var(--secondary-color);
+    }
+
+    .program-card p {
+        color: var(--text-light);
+        margin-bottom: 1.5rem;
+    }
+
+    .program-card ul {
+        list-style: none;
+        margin-bottom: 2rem;
+    }
+
+    .program-card li {
+        padding: 0.5rem 0;
+        color: var(--text-light);
+        position: relative;
+        padding-left: 1.5rem;
+    }
+
+    .program-card li::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: var(--primary-color);
+        font-weight: bold;
+    }
+
+    .program-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 600;
+        transition: var(--transition);
+    }
+
+    .program-link:hover {
+        color: var(--secondary-color);
+    }
+
+    /* Team Section */
+    .team {
+        padding: 6rem 0;
+        background-color: var(--bg-light);
+    }
+
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-bottom: 4rem;
+    }
+
+    .team-member {
+        background-color: var(--white);
+        padding: 2rem;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        text-align: center;
+        transition: var(--transition);
+    }
+
+    .team-member:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-hover);
+    }
+
+    .team-image {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        margin-bottom: 1rem;
+        object-fit: cover;
+    }
+
+    .team-member h3 {
+        color: var(--secondary-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .team-role {
+        color: var(--primary-color);
+        font-weight: 500;
+        margin-bottom: 1rem;
+    }
+
+    .team-bio {
+        color: var(--text-light);
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+
+    .sponsor-section {
+        text-align: center;
+        margin-top: 4rem;
+    }
+
+    .sponsor-title {
+        font-size: 1.8rem;
+        color: var(--secondary-color);
+        margin-bottom: 1.5rem;
+    }
+
+    .sponsor-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .sponsor-image {
+        max-width: 200px;
+        margin-bottom: 1rem;
+    }
+
+    .sponsor-description {
+        max-width: 600px;
+        color: var(--text-light);
+        line-height: 1.8;
+    }
+
+    /* Impact Section */
+    .impact {
+        padding: 6rem 0;
+        background-color: var(--bg-light);
+    }
+
+    .impact-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-bottom: 4rem;
+    }
+
+    .impact-stat {
+        text-align: center;
+        padding: 2rem;
+        background-color: var(--white);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+    }
+
+    .stat-number {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+        color: var(--text-light);
+        font-weight: 500;
+    }
+
+    .testimonials {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 2rem;
+    }
+
+    .testimonial {
+        background-color: var(--white);
+        padding: 2rem;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        position: relative;
+    }
+
+    .testimonial::before {
+        content: '"';
+        font-size: 4rem;
+        color: var(--primary-color);
+        position: absolute;
+        top: -1rem;
+        left: 1rem;
+        opacity: 0.3;
+    }
+
+    .testimonial p {
+        color: var(--text-light);
+        margin-bottom: 1.5rem;
+        font-style: italic;
+    }
+
+    .testimonial-author strong {
+        color: var(--secondary-color);
+    }
+
+    .testimonial-author span {
+        color: var(--text-light);
+        font-size: 0.9rem;
+    }
+
+    /* Contact Section */
+    .contact {
+        padding: 6rem 0;
+    }
+
+    .contact-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+    }
+
+    .contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .contact-item i {
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        margin-top: 0.25rem;
+    }
+
+    .contact-item h4 {
+        margin-bottom: 0.5rem;
+        color: var(--secondary-color);
+    }
+
+    .contact-item p {
+        color: var(--text-light);
+    }
+
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid #e1e8ed;
+        border-radius: var(--border-radius);
+        font-size: 1rem;
+        transition: var(--transition);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: var(--primary-color);
+    }
+
+    /* Footer */
+    .footer {
+        background-color: var(--secondary-color);
+        color: var(--white);
+        padding: 3rem 0 1rem;
+    }
+
+    .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .footer-section h4 {
+        margin-bottom: 1rem;
+        color: var(--white);
+    }
+
+    .footer-section p {
+        color: #bdc3c7;
+        margin-bottom: 1rem;
+    }
+
+    .footer-section ul {
+        list-style: none;
+    }
+
+    .footer-section li {
+        margin-bottom: 0.5rem;
+    }
+
+    .footer-section a {
+        color: #bdc3c7;
+        text-decoration: none;
+        transition: var(--transition);
+    }
+
+    .footer-section a:hover {
+        color: var(--white);
+    }
+
+    .social-links {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: var(--primary-color);
+        border-radius: 50%;
+        transition: var(--transition);
+    }
+
+    .social-links a:hover {
+        background-color: var(--white);
+        color: var(--secondary-color);
+    }
+
+    .footer-bottom {
+        border-top: 1px solid #34495e;
+        padding-top: 1rem;
+        text-align: center;
+        color: #bdc3c7;
+    }
+
+    /* Responsive Adjustments */
+    @media (min-width: 769px) {
+        .values {
+            grid-template-columns: repeat(3, 1fr); /* Force three columns on big screens */
+        }
+
+        .value-item {
+            padding: 1rem; /* Slightly reduce padding to fit content better */
+        }
+
+        .value-item h4 {
+            font-size: 1.2rem; /* Adjust font size for better fit */
+        }
+
+        .value-item p {
+            font-size: 0.9rem; /* Adjust font size for better fit */
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hamburger {
+            display: flex;
+        }
+
+        .nav-menu {
+            position: fixed;
+            left: -100%;
+            top: 70px;
+            flex-direction: column;
+            background-color: var(--white);
+            width: 100%;
+            text-align: center;
+            transition: 0.3s;
+            box-shadow: var(--shadow);
+            padding: 2rem 0;
+        }
+
+        .nav-menu.active {
+            left: 0;
+        }
+
+        .hero {
+            height: auto;
+            min-height: 100vh;
+            padding: 4rem 0;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+        }
+
+        .hero-buttons {
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .hero-buttons .btn {
+            width: 100%;
+            max-width: 250px;
+        }
+
+        .hero-stats {
+            position: static;
+            margin-top: 2rem;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding: 1rem;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .hero-stats .stat-item {
+            min-width: 0;
+            max-width: 150px;
+        }
+
+        .hero-stats .stat-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .hero-stats .stat-item p {
+            font-size: 0.8rem;
+            line-height: 1.2;
+        }
+
+        .section-title {
+            font-size: 2rem;
+        }
+
+        .about-content {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+        }
+
+        .contact-content {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .testimonials {
+            grid-template-columns: 1fr;
+        }
+
+        .values {
+            grid-template-columns: 1fr; /* Stack on small screens */
+        }
+
+        .programs-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .team-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .impact-stats {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .stat-item {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .container {
+            padding: 0 15px;
+        }
+
+        .nav-container {
+            padding: 1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero-title {
+            font-size: 2rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+        }
+
+        .impact-stats {
+            grid-template-columns: 1fr;
+        }
+
+        .hero-stats {
+            gap: 1rem;
+        }
+
+        .hero-stats .stat-item h3 {
+            font-size: 1.2rem;
+        }
+
+        .hero-stats .stat-item p {
+            font-size: 0.7rem;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+
+        .program-card,
+        .testimonial,
+        .impact-stat,
+        .team-member {
+            padding: 1.5rem;
+        }
+
+        .hero-buttons {
+            gap: 0.5rem;
+        }
+
+        .hero-buttons .btn {
+            max-width: 200px;
+        }
+
+        .sponsor-content {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .sponsor-image {
+            max-width: 150px;
+        }
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .hero-content,
+    .team-member {
+        animation: fadeInUp 1s ease-out;
+    }
+
+    .program-card,
+    .testimonial,
+    .impact-stat {
+        animation: fadeInUp 0.6s ease-out;
+    }
+
+    /* Smooth scrolling offset for fixed navbar */
+    section {
+        scroll-margin-top: 80px;
+    }
+    </style>
+
     <script>
         // Mobile Navigation Toggle
-        const navToggle = document.getElementById('nav-toggle');
+        const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
 
-        navToggle.addEventListener('click', () => {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
-            navToggle.classList.toggle('active');
         });
 
         // Close mobile menu when clicking on a link
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                navToggle.classList.remove('active');
-            });
-        });
+        document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }));
 
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -982,38 +1301,23 @@
             });
         });
 
-        // Form submission handler
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(this);
-            const name = formData.get('name');
-            const email = formData.get('email');
-            const subject = formData.get('subject');
-            const message = formData.get('message');
-            
-            // Simple validation
-            if (!name || !email || !subject || !message) {
-                alert('Please fill in all fields.');
-                return;
+        // Navbar background change on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.backdropFilter = 'blur(10px)';
+            } else {
+                navbar.style.backgroundColor = '#ffffff';
+                navbar.style.backdropFilter = 'none';
             }
-            
-            // Simulate form submission
-            alert('Thank you for your message! We will get back to you soon.');
-            this.reset();
         });
 
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('.header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.98)';
-                header.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.15)';
-            } else {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-            }
+        // Contact form submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
         });
 
         // Intersection Observer for animations
@@ -1032,43 +1336,42 @@
         }, observerOptions);
 
         // Observe elements for animation
-        document.querySelectorAll('.service-card, .feature-item, .contact-item').forEach(el => {
+        document.querySelectorAll('.program-card, .testimonial, .impact-stat, .value-item, .team-member').forEach(el => {
             el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
             observer.observe(el);
         });
 
-        // Counter animation for impact stats
-        function animateCounters() {
-            const counters = document.querySelectorAll('.stat-number');
-            
-            counters.forEach(counter => {
-                const target = parseInt(counter.textContent.replace(/[^0-9]/g, ''));
-                const increment = target / 100;
-                let current = 0;
-                
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                        counter.textContent = counter.textContent.replace(/[0-9]+/, target);
-                        clearInterval(timer);
-                    } else {
-                        counter.textContent = counter.textContent.replace(/[0-9]+/, Math.floor(current));
-                    }
-                }, 20);
-            });
+        // Counter animation for statistics
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 100;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current).toLocaleString() + (target >= 1000 ? '+' : '');
+            }, 20);
         }
 
-        // Trigger counter animation when impact section is visible
-        const impactSection = document.querySelector('.impact');
-        const impactObserver = new IntersectionObserver((entries) => {
+        // Animate counters when they come into view
+        const counterObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    animateCounters();
-                    impactObserver.unobserve(entry.target);
+                    const counter = entry.target;
+                    const target = parseInt(counter.textContent.replace(/[^0-9]/g, ''));
+                    animateCounter(counter, target);
+                    counterObserver.unobserve(counter);
                 }
             });
-        }, { threshold: 0.5 });
+        });
 
-        impactObserver.observe(impactSection);
+        document.querySelectorAll('.stat-number').forEach(counter => {
+            counterObserver.observe(counter);
+        });
+    </script>
+</body>
+</html>
