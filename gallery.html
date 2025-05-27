@@ -6,6 +6,7 @@
     <title>BHLF - Photo Gallery</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="/images/bhlflogo.png">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"></script>
     <style>
         :root {
             --primary-color: #4a90e2;
@@ -33,21 +34,21 @@
         }
 
         body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    color: var(--text-dark);
-    overflow-x: hidden;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-}
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
 
         .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    background: rgba(255, 255, 255, 0.1); /* Optional: adds a subtle background to content */
-    backdrop-filter: blur(10px); /* Optional: enhances readability */
-    border-radius: var(--border-radius);
-}
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+        }
 
         /* Navigation */
         .navbar {
@@ -134,7 +135,7 @@
             text-align: center;
             color: white;
             font-size: 3rem;
-            margin-top: 90px; /* Adjusted for fixed navbar */
+            margin-top: 90px;
             margin-bottom: 40px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
@@ -199,6 +200,17 @@
 
         .photo-item:hover img {
             transform: scale(1.1);
+        }
+
+        /* Placeholder for lazy-loaded images */
+        img.lazy {
+            background-color: #f0f0f0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        img.lazy[src] {
+            opacity: 1;
         }
 
         .photo-overlay {
@@ -436,7 +448,7 @@
                 const photoItem = document.createElement('div');
                 photoItem.className = 'photo-item';
                 photoItem.innerHTML = `
-                    <img src="${photo.src}" alt="${photo.title}" loading="lazy">
+                    <img data-src="${photo.src}" src="${photo.src}" alt="${photo.title}" class="lazy" loading="lazy">
                     <div class="photo-overlay">
                         <div class="photo-title">${photo.title}</div>
                         <div class="photo-category">${photo.category.charAt(0).toUpperCase() + photo.category.slice(1)}</div>
@@ -445,6 +457,32 @@
                 photoItem.addEventListener('click', () => openModal(photo));
                 gallery.appendChild(photoItem);
             });
+
+            // Setup lazy loading
+            lazyLoadImages();
+        }
+
+        // Lazy load images using Intersection Observer
+        function lazyLoadImages() {
+            const images = document.querySelectorAll('img.lazy');
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src; // Set src from data-src
+                        img.classList.remove('lazy'); // Remove lazy class
+                        observer.unobserve(img); // Stop observing once loaded
+                        img.onerror = () => {
+                            img.src = '/images/fallback.jpg'; // Fallback image
+                        };
+                    }
+                });
+            }, {
+                rootMargin: '0px 0px 200px 0px', // Load images 200px before they enter viewport
+                threshold: 0.1 // Trigger when 10% of the image is visible
+            });
+
+            images.forEach(img => observer.observe(img));
         }
 
         // Filter photos by category
