@@ -1,74 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BHLF -Photo Gallery</title>
-    <link rel="icon" type="image/png" href="images/bhlflogo.png">
+    <title>BHLF - Photo Gallery</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/images/bhlflogo.png">
     <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.2);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #4a90e2 0%, #2c3e50 100%);
-            min-height: 100vh;
-            padding: 20px;
+        html {
+            scroll-behavior: smooth;
         }
 
+        body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    overflow-x: hidden;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
         .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    background: rgba(255, 255, 255, 0.1); /* Optional: adds a subtle background to content */
+    backdrop-filter: blur(10px); /* Optional: enhances readability */
+    border-radius: var(--border-radius);
+}
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        /* Navbar Styles */
-        .navbar {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 15px 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px;
-        }
-
-        .navbar ul {
+        .nav-brand {
             display: flex;
-            justify-content: center;
-            list-style: none;
-            gap: 30px;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .navbar a {
-            color: white;
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .brand-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
             text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: color 0.3s ease;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: var(--transition);
         }
 
-        .navbar a:hover {
-            color: #ff6b6b;
+        .nav-link:hover {
+            color: var(--primary-color);
         }
 
-        @media (max-width: 768px) {
-            .navbar ul {
-                gap: 15px;
-            }
-
-            .navbar a {
-                font-size: 0.9rem;
-            }
+        .nav-link.donate-btn {
+            background-color: var(--accent-color);
+            color: var(--white);
+            padding: 8px 20px;
+            border-radius: var(--border-radius);
         }
 
+        .nav-link.donate-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            margin: 3px 0;
+            transition: var(--transition);
+        }
+
+        /* Gallery Styles */
         h1 {
             text-align: center;
             color: white;
             font-size: 3rem;
+            margin-top: 90px; /* Adjusted for fixed navbar */
             margin-bottom: 40px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
@@ -211,11 +277,29 @@
             color: #ff6b6b;
         }
 
-        .hidden {
-            display: none;
-        }
-
+        /* Responsive Design */
         @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: var(--white);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: var(--shadow);
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
             .gallery {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
                 gap: 15px;
@@ -234,16 +318,33 @@
                 font-size: 0.9rem;
             }
         }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
     </style>
 </head>
-
 <body>
     <nav class="navbar">
-        <ul>
-            <li><a href="/index.html">Home</a></li>
-            <li><a href="/clubhouse.html">Clubhouse</a></li>
-            <li><a href="/donation.html">Donate</a></li>
-        </ul>
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="/images/bhlflogo.png" alt="BHLF" class="logo">
+                <span class="brand-text">BHLF</span>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="/index.html" class="nav-link">Home</a>
+                <a href="/clubhouse.html" class="nav-link">Clubhouses</a>
+                <a href="/index.html#contact" class="nav-link">Contact</a>
+                <a href="/donation.html" class="nav-link donate-btn">Donate</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
     </nav>
 
     <div class="container">
@@ -254,7 +355,7 @@
             <button class="filter-btn" data-filter="Handwashing Initiative">Handwashing Initiative</button>
             <button class="filter-btn" data-filter="End Year Party">End Year Party</button>
             <button class="filter-btn" data-filter="Assessments">Assessments</button>
-            <button class="filter-btn" data-filter="Farming">Farming</button> 
+            <button class="filter-btn" data-filter="Farming">Farming</button>
         </div>
 
         <div class="gallery" id="gallery">
@@ -277,240 +378,45 @@
     <script>
         // Sample photo data - replace with your actual photos
         const photos = [
-            {
-                id: 1,
-                src: "images/gallery/DSC_6803.jpg",
-                title: "2024",
-                category: "End Year Party"
-            },
-            {
-                id: 2,
-                src: "images/gallery/DSC_6831.jpg",
-                title: "2024",
-                category: "End Year Party"
-            },
-            {
-                id: 3,
-                src: "images/gallery/DSC_6927.jpg",
-                title: "2024",
-                category: "End Year Party"
-            },
-            {
-                id: 4,
-                src: "images/gallery/DSC_6932.jpg",
-                title: "2024",
-                category: "End Year Party"
-            },
-            {
-                id: 5,
-                src: "images/gallery/DSC_7068.jpg",
-                title: "2024",
-                category: "End Year Party"
-            },
-            {
-                id: 6,
-                src: "images/gallery/DSC_7072.jpg",
-                title: "2024",
-                category: "End Year Party"
-            },
-            {
-                id: 7,
-                src: "images/gallery/DSC_7080.jpg",
-                title: "2024",
-                category: "End Year Party"
-            },
-            {
-                id: 8,
-                src: "images/gallery/DSC_7085.jpg",
-                title: "2024",
-                category: "End Year Party"
-            },
-            {
-                id: 9,
-                src: "images/gallery/DSC_7089.jpg",
-                title: "2024",
-                category: "End Year Party"
-            },
-            {
-                id: 10,
-                src: "images/gallery/DSC_7130.jpg",
-                title: "2024",
-                category: "End Year Party"
-            },
-            {
-                id: 11,
-                src: "images/gallery/DSC_7197.jpg",
-                title: "2024",
-                category: "End Year Party"
-            },
-            {
-                id: 12,
-                src: "images/gallery/DSC_6884.jpg",
-                title: "2024",
-                category: "End Year Party"
-            },
-            {
-                id: 13,
-                src: "images/gallery/hand1.jpeg",
-                title: "2025",
-                category: "Handwashing Initiative"
-            },
-            {
-                id: 14,
-                src: "images/gallery/hand2.jpeg",
-                title: "2025",
-                category: "Handwashing Initiative"
-            },
-            {
-                id: 15,
-                src: "images/gallery/hand3.jpeg",
-                title: "2025",
-                category: "Handwashing Initiative"
-            },
-            {
-                id: 16,
-                src: "images/gallery/hand4.jpeg",
-                title: "2025",
-                category: "Handwashing Initiative"
-            },
-            {
-                id: 17,
-                src: "images/gallery/hand5.jpeg",
-                title: "2025",
-                category: "Handwashing Initiative"
-            },
-            {
-                id: 18,
-                src: "images/gallery/hand6.jpeg",
-                title: "2025",
-                category: "Handwashing Initiative"
-            },
-            {
-                id: 19,
-                src: "images/gallery/hand7.jpeg",
-                title: "2025",
-                category: "Handwashing Initiative"
-            },
-            {
-                id: 20,
-                src: "images/gallery/3.jpg",
-                title: "2025",
-                category: "Assessments"
-            },
-            {
-                id: 21,
-                src: "images/gallery/assess1.jpeg",
-                title: "2025",
-                category: "Assessments"
-            },
-            {
-                id: 22,
-                src: "images/gallery/assess2.jpeg",
-                title: "2025",
-                category: "Assessments"
-            },
-            {
-                id: 23,
-                src: "images/gallery/assess3.jpeg",
-                title: "2025",
-                category: "Assessments"
-            },
-            {
-                id: 24,
-                src: "images/gallery/assess4.jpeg",
-                title: "2025",
-                category: "Assessments"
-            },
-            {
-                id: 25,
-                src: "images/gallery/assess5.jpeg",
-                title: "2025",
-                category: "Assessments"
-            },
-            {
-                id: 26,
-                src: "images/gallery/zoom1.jpeg",
-                title: "2025",
-                category: "Assessments"
-            },
-            {
-                id: 27,
-                src: "images/gallery/zoom2.jpeg",
-                title: "2025",
-                category: "Assessments"
-            },
-            {
-                id: 28,
-                src: "images/gallery/zoom3.jpeg",
-                title: "2025",
-                category: "Assessments"
-            },
-            {
-                id: 29,
-                src: "images/gallery/zoom4.jpeg",
-                title: "2025",
-                category: "Assessments"
-            },
-            {
-                id: 30,
-                src: "images/gallery/veg1.jpg",
-                title: "2024",
-                category: "Farming"
-            },
-            {
-                id: 31,
-                src: "images/gallery/veg2.jpg",
-                title: "2024",
-                category: "Farming"
-            },
-            {
-                id: 32,
-                src: "images/gallery/veg3.jpg",
-                title: "2024",
-                category: "Farming"
-            },
-            {
-                id: 33,
-                src: "images/gallery/veg4.jpg",
-                title: "2024",
-                category: "Farming"
-            },
-            {
-                id: 34,
-                src: "images/gallery/farming.jpeg",
-                title: "2024",
-                category: "Farming"
-            },
-            {
-                id: 35,
-                src: "images/gallery/farm.jpg",
-                title: "2024",
-                category: "Farming"
-            },
-            {
-                id: 36,
-                src: "images/gallery/10.jpg",
-                title: "2024",
-                category: "Farming"
-            },
-            {
-                id: 37,
-                src: "images/gallery/11.jpg",
-                title: "2024",
-                category: "Farming"
-            },
-            {
-                id: 38,
-                src: "images/gallery/12.jpg",
-                title: "2024",
-                category: "Farming"
-            },
-            {
-                id: 39,
-                src: "images/gallery/13.jpg",
-                title: "2024",
-                category: "Farming"
-            },
+            { id: 1, src: "/images/gallery/DSC_6803.jpg", title: "2024", category: "End Year Party" },
+            { id: 2, src: "/images/gallery/DSC_6831.jpg", title: "2024", category: "End Year Party" },
+            { id: 3, src: "/images/gallery/DSC_6927.jpg", title: "2024", category: "End Year Party" },
+            { id: 4, src: "/images/gallery/DSC_6932.jpg", title: "2024", category: "End Year Party" },
+            { id: 5, src: "/images/gallery/DSC_7068.jpg", title: "2024", category: "End Year Party" },
+            { id: 6, src: "/images/gallery/DSC_7072.jpg", title: "2024", category: "End Year Party" },
+            { id: 7, src: "/images/gallery/DSC_7080.jpg", title: "2024", category: "End Year Party" },
+            { id: 8, src: "/images/gallery/DSC_7085.jpg", title: "2024", category: "End Year Party" },
+            { id: 9, src: "/images/gallery/DSC_7089.jpg", title: "2024", category: "End Year Party" },
+            { id: 10, src: "/images/gallery/DSC_7130.jpg", title: "2024", category: "End Year Party" },
+            { id: 11, src: "/images/gallery/DSC_7197.jpg", title: "2024", category: "End Year Party" },
+            { id: 12, src: "/images/gallery/DSC_6884.jpg", title: "2024", category: "End Year Party" },
+            { id: 13, src: "/images/gallery/hand1.jpeg", title: "2025", category: "Handwashing Initiative" },
+            { id: 14, src: "/images/gallery/hand2.jpeg", title: "2025", category: "Handwashing Initiative" },
+            { id: 15, src: "/images/gallery/hand3.jpeg", title: "2025", category: "Handwashing Initiative" },
+            { id: 16, src: "/images/gallery/hand4.jpeg", title: "2025", category: "Handwashing Initiative" },
+            { id: 17, src: "/images/gallery/hand5.jpeg", title: "2025", category: "Handwashing Initiative" },
+            { id: 18, src: "/images/gallery/hand6.jpeg", title: "2025", category: "Handwashing Initiative" },
+            { id: 19, src: "/images/gallery/hand7.jpeg", title: "2025", category: "Handwashing Initiative" },
+            { id: 20, src: "/images/gallery/3.jpg", title: "2025", category: "Assessments" },
+            { id: 21, src: "/images/gallery/assess1.jpeg", title: "2025", category: "Assessments" },
+            { id: 22, src: "/images/gallery/assess2.jpeg", title: "2025", category: "Assessments" },
+            { id: 23, src: "/images/gallery/assess3.jpeg", title: "2025", category: "Assessments" },
+            { id: 24, src: "/images/gallery/assess4.jpeg", title: "2025", category: "Assessments" },
+            { id: 25, src: "/images/gallery/assess5.jpeg", title: "2025", category: "Assessments" },
+            { id: 26, src: "/images/gallery/zoom1.jpeg", title: "2025", category: "Assessments" },
+            { id: 27, src: "/images/gallery/zoom2.jpeg", title: "2025", category: "Assessments" },
+            { id: 28, src: "/images/gallery/zoom3.jpeg", title: "2025", category: "Assessments" },
+            { id: 29, src: "/images/gallery/zoom4.jpeg", title: "2025", category: "Assessments" },
+            { id: 30, src: "/images/gallery/veg1.jpg", title: "2024", category: "Farming" },
+            { id: 31, src: "/images/gallery/veg2.jpg", title: "2024", category: "Farming" },
+            { id: 32, src: "/images/gallery/veg3.jpg", title: "2024", category: "Farming" },
+            { id: 33, src: "/images/gallery/veg4.jpg", title: "2024", category: "Farming" },
+            { id: 34, src: "/images/gallery/farming.jpeg", title: "2024", category: "Farming" },
+            { id: 35, src: "/images/gallery/farm.jpg", title: "2024", category: "Farming" },
+            { id: 36, src: "/images/gallery/10.jpg", title: "2024", category: "Farming" },
+            { id: 37, src: "/images/gallery/11.jpg", title: "2024", category: "Farming" },
+            { id: 38, src: "/images/gallery/12.jpg", title: "2024", category: "Farming" },
+            { id: 39, src: "/images/gallery/13.jpg", title: "2024", category: "Farming" }
         ];
 
         let currentFilter = 'all';
@@ -536,7 +442,6 @@
                         <div class="photo-category">${photo.category.charAt(0).toUpperCase() + photo.category.slice(1)}</div>
                     </div>
                 `;
-
                 photoItem.addEventListener('click', () => openModal(photo));
                 gallery.appendChild(photoItem);
             });
@@ -548,7 +453,6 @@
             const filteredPhotos = category === 'all'
                 ? photos
                 : photos.filter(photo => photo.category === category);
-
             displayPhotos(filteredPhotos);
         }
 
@@ -558,27 +462,36 @@
             const filterButtons = document.querySelectorAll('.filter-btn');
             filterButtons.forEach(btn => {
                 btn.addEventListener('click', (e) => {
-                    // Update active button
                     filterButtons.forEach(b => b.classList.remove('active'));
                     e.target.classList.add('active');
-
-                    // Filter photos
                     filterPhotos(e.target.dataset.filter);
                 });
             });
 
-            // Modal close Junoose events
+            // Modal close events
             const modal = document.getElementById('modal');
             const closeBtn = document.querySelector('.close');
-
             closeBtn.addEventListener('click', closeModal);
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) closeModal();
             });
-
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') closeModal();
             });
+
+            // Mobile Navigation Toggle
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }));
         }
 
         // Open modal with photo details
@@ -587,11 +500,9 @@
             const modalImg = document.getElementById('modal-img');
             const modalTitle = document.getElementById('modal-title');
             const modalCategory = document.getElementById('modal-category');
-
             modalImg.src = photo.src.replace('w=500&h=300', 'w=800&h=600');
             modalTitle.textContent = photo.title;
             modalCategory.textContent = photo.category.charAt(0).toUpperCase() + photo.category.slice(1);
-
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
@@ -603,9 +514,20 @@
             document.body.style.overflow = 'auto';
         }
 
+        // Navbar background change on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.backdropFilter = 'blur(10px)';
+            } else {
+                navbar.style.backgroundColor = '#ffffff';
+                navbar.style.backdropFilter = 'none';
+            }
+        });
+
         // Initialize the gallery when page loads
         document.addEventListener('DOMContentLoaded', initGallery);
     </script>
 </body>
-
 </html>
